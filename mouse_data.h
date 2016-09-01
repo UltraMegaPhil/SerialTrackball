@@ -38,9 +38,7 @@ class MouseDataProducer {
         // Process an incoming serial byte. If the byte completes an entire packet
         // of data, the supplied MouseData object is filled out and 1 is returned.
         // Otherwise 0 is returned and no change is made to the supplied MouseData object
-        virtual int readIncomingSerialByte(byte data, MouseData *output) {
-            return 0;    
-        }
+        virtual int readIncomingSerialByte(byte, MouseData*) { return 0; }
 };
 
 /*
@@ -49,7 +47,7 @@ class MouseDataProducer {
 class MouseDataConsumer {
     public: 
         virtual void initialize() {}
-        virtual void consumeMouseData(MouseData *data) {}
+        virtual void consumeMouseData(MouseData*) {}
 };
 
 #endif

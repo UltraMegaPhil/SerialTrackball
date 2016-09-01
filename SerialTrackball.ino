@@ -11,12 +11,12 @@ MouseData mouseData;
 
 const int HUMAN_READABLE_OUTPUT = 0;
 const int BLUEFRUIT_OUTPUT      = 1;
-const int outputMode            = HUMAN_READABLE_OUTPUT;
+const int outputMode            = BLUEFRUIT_OUTPUT;
 
 
 void setup() {  
     // Setup producer
-    producer = new MicrosoftProducer(MicrosoftProducer::Ballpoint4Byte);
+    producer = new MicrosoftProducer(MicrosoftProducer::Ballpoint);
     producer->initialize();
 
     // Setup incoming serial port

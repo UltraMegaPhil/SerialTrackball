@@ -20,20 +20,19 @@
  *                                   +---+----------------- Extra buttons. Don't care.
  */
 
-MicrosoftProducer::MicrosoftProducer(Family family) {
-    switch(family) {
-        case Standard3Byte:
-            this->packetSize = 3;
-            break;
-            
-        case Ballpoint4Byte:
-            this->packetSize = 4;
-            break;
+struct FamilyData {
+    int packetSize;
+    int baud;
+    int portConfig;
+};
 
-        default:
-            break;
-    }
-}
+const FamilyData FAMILY_DATA[MicrosoftProducer::Family::NumFamilies] = {
+    { 3, 1200, SERIAL_7N1 },        // Standard
+    { 4, 1200, SERIAL_7N1 }         // Ballpoint
+};
+
+MicrosoftProducer::MicrosoftProducer(Family f) :
+    family(f) {}
 
 MicrosoftProducer::~MicrosoftProducer() {}
 
@@ -42,11 +41,11 @@ void MicrosoftProducer::initialize() {
 }
 
 int MicrosoftProducer::getSerialPortSpeed() {
-    return 1200;    
+    return FAMILY_DATA[this->family].baud;
 }
 
 byte MicrosoftProducer::getSerialPortConfig() {
-    return SERIAL_7N1;
+    return FAMILY_DATA[this->family].portConfig;
 }
 
 int MicrosoftProducer::readIncomingSerialByte(byte data, MouseData *output) {
@@ -56,22 +55,30 @@ int MicrosoftProducer::readIncomingSerialByte(byte data, MouseData *output) {
     }
     dataBuffer[dataBufferIndex++] = data;
 
-    if(dataBufferIndex >= this->packetSize) {                      // Packet ready to be consumed
-        output->leftButtonPressed   = dataBuffer[0] & 0x20;
-        output->rightButtonPressed  = dataBuffer[0] & 0x10;
-        output->xDelta              = (((dataBuffer[0] & 0x03) << 6) | (dataBuffer[1] & 0x3F));
-        output->yDelta              = (((dataBuffer[0] & 0x0C) << 4) | (dataBuffer[2] & 0x3F));
-
-        resetDataBuffer();
-
-        return 1;
-    }
-    
-    return 0;    
+    return this->processDataBuffer(output);
 }
         
 void MicrosoftProducer::resetDataBuffer() {
     memset(this->dataBuffer, 0, DATA_BUFFER_SIZE);
     this->dataBufferIndex = 0;
-}      
+}
+
+int MicrosoftProducer::bufferContainsValidPacket() {
+    return ((this->dataBufferLength() > 0) && 
+        (this->dataBufferLength() >= FAMILY_DATA[this->family].packetSize) &&
+        (this->dataBuffer[0] & 0x40));
+}
+
+int MicrosoftProducer::processDataBuffer(MouseData *output) {
+    if(this->bufferContainsValidPacket()) {
+        output->leftButtonPressed   = this->dataBuffer[0] & 0x20;
+        output->rightButtonPressed  = this->dataBuffer[0] & 0x10;
+        output->xDelta              = (((this->dataBuffer[0] & 0x03) << 6) | (this->dataBuffer[1] & 0x3F));
+        output->yDelta              = (((this->dataBuffer[0] & 0x0C) << 4) | (this->dataBuffer[2] & 0x3F));
+
+        return 1;
+    }
+
+    return 0;
+}
 

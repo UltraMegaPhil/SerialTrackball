@@ -15,13 +15,10 @@ class BluefruitConsumer : public MouseDataConsumer {
         void consumeMouseData(MouseData *data);
 
     private:
-
         void fillOutputBuffer(byte leftButton, byte rightButton, char xDelta, char yDelta);
         void resetOutputBuffer();
-
     
         static const int BF_DATA_BUFFER_SIZE = 9;
-        
         byte outputBuffer[BF_DATA_BUFFER_SIZE];
         AltSoftSerial serialOut;
 };

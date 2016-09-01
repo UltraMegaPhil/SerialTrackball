@@ -10,13 +10,14 @@
  */
 class MicrosoftProducer : public MouseDataProducer {
     public:
-
         enum Family {
-            Standard3Byte,
-            Ballpoint4Byte
+            Standard        = 0,
+            Ballpoint,
+
+            NumFamilies
         };
 
-        MicrosoftProducer(Family family);
+        MicrosoftProducer(Family f);
         ~MicrosoftProducer();
     
         virtual void initialize();
@@ -25,12 +26,15 @@ class MicrosoftProducer : public MouseDataProducer {
         virtual int readIncomingSerialByte(byte data, MouseData *output);
         
     private:
+        int dataBufferLength() { return dataBufferIndex; }
         void resetDataBuffer();
+        int bufferContainsValidPacket();
+        int processDataBuffer(MouseData *output);
         
-        static const int DATA_BUFFER_SIZE = 16; 
+        static const int DATA_BUFFER_SIZE = 16;
         byte dataBuffer[DATA_BUFFER_SIZE];
         int dataBufferIndex;
-        int packetSize;
+        Family family;
 };
 
 #endif

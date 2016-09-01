@@ -2,6 +2,7 @@
 
 void HumanReadableConsumer::initialize() {
     this->serialOut.begin(9600);
+    this->serialOut.print("Mouse output ready!\n");
 }
 
 void HumanReadableConsumer::consumeMouseData(MouseData *data) {
