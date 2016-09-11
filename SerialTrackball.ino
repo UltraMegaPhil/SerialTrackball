@@ -3,6 +3,7 @@
 #include "bluefruit_consumer.h"
 #include "human_readable_consumer.h"
 #include "microsoft_producer.h"
+#include "led_debug.h"
 
 // Mouse Data
 MouseDataProducer *producer;
@@ -13,6 +14,7 @@ const int HUMAN_READABLE_OUTPUT = 0;
 const int BLUEFRUIT_OUTPUT      = 1;
 const int outputMode            = BLUEFRUIT_OUTPUT;
 
+LedDebug ledDebug(13, 250);
 
 void setup() {  
     // Setup producer
@@ -39,6 +41,8 @@ void setup() {
     if(consumer) {
         consumer->initialize();
     }
+
+    ledDebug.initialize();
 }
 
 void loop() {
@@ -47,7 +51,9 @@ void loop() {
             if(consumer) {
                 consumer->consumeMouseData(&mouseData);    
             }
+            ledDebug.flash();
         }
     }
+    ledDebug.update();
 }
 

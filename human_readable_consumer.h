@@ -3,7 +3,7 @@
 
 #include <Arduino.h>
 #include <AltSoftSerial.h>
-#include "mouse_Data.h"
+#include "mouse_data.h"
 
 /*
  * Consumes incoming MouseData and dumps human-readable output to 
