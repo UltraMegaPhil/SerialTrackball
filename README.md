@@ -10,4 +10,4 @@ For the EZ-Key application, two serial ports are required - one for reading from
 
 ## Circuit Diagram
 
-![EZ-Key circuit diagram](https://raw.githubusercontent.com/UltraMegaPhil/SerialTrackball/master/images/trackball-bluefruit-circuit.png width=400)
+![EZ-Key circuit diagram](https://raw.githubusercontent.com/UltraMegaPhil/SerialTrackball/master/images/trackball-bluefruit-circuit.png | width=400)
