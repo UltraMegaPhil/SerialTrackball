@@ -15,3 +15,8 @@ For the EZ-Key application, two serial ports are required - one for reading from
 ## Circuit Diagram
 
 ![EZ-Key circuit diagram](https://raw.githubusercontent.com/UltraMegaPhil/SerialTrackball/master/images/trackball-bluefruit-circuit.png)
+
+
+
+## Tips
+As you will see in the diagram, pin 4 on the RS-232 port is wired up to a 5v line. This is because the serial mouse requires 5v to power the circuitry inside it. Both the Logitech Trackman and the Microsoft Ballpoint seem to use the DTR line for this, but there seems to be mention online of other devices which take it from a different line, so YMMV.
