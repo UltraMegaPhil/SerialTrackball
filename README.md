@@ -6,7 +6,11 @@ In this implementation, the serial data is also converted into a mouse data pack
 
 This code has primarily been implemented for a Microsoft Ballpoint Serial Trackball, which uses a semi-standard version of the Microsoft Serial Mouse protocol (except it has an extra byte). The code was also tested on a Logitech Trackman trackball and found to be working on that too. 
 
+Working example of this can be seen in my RetroBox arcade stick [here](https://www.youtube.com/watch?v=q-1sBoGaoQ0).
+
 For the EZ-Key application, two serial ports are required - one for reading from the serial mouse, and another for talking to the EZ-Key. To achieve this, the [**AltSoftSerial library**](https://www.pjrc.com/teensy/td_libs_AltSoftSerial.html) is required.
+
+
 
 ## Circuit Diagram
 
