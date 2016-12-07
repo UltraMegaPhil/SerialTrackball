@@ -8,4 +8,6 @@ This code has primarily been implemented for a Microsoft Ballpoint Serial Trackb
 
 For the EZ-Key application, two serial ports are required - one for reading from the serial mouse, and another for talking to the EZ-Key. To achieve this, the [**AltSoftSerial library**](https://www.pjrc.com/teensy/td_libs_AltSoftSerial.html) is required.
 
-![alt tag](https://raw.githubusercontent.com/UltraMegaPhil/SerialTrackball/master/images/trackball-bluefruit-circuit.png)
+## Circuit Diagram
+
+![EZ-Key circuit diagram](https://raw.githubusercontent.com/UltraMegaPhil/SerialTrackball/master/images/trackball-bluefruit-circuit.png width=400)
